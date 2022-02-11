@@ -28,7 +28,7 @@ class PageController extends Controller
     }
 
     public function homePage(){
-        $data = News::paginate(3);
+        $data = News::latest()->paginate(3);
         return view('welcome', ['datas' => $data]);
     }
 
@@ -37,13 +37,12 @@ class PageController extends Controller
     }
 
     public function newsPage(){
-        $data = News::paginate(9);
+        $data = News::latest()->paginate(9);
         return view('news', ['datas' => $data]);
     }
     public function news($id){
         $find = News::findOrFail($id);
-        $comment = Comment::all();
-        $news = News::all();
+        $news = News::whereBetween('id', [5,9])->get();
 
         $view = $find->id;
         if(!session()->has($view)){
@@ -51,8 +50,7 @@ class PageController extends Controller
             session()->put($view,1);
         }
 
-        return view('newsId', ['find' => $find, 
-            'news' => $news, 'comments' => $find->comments()]);
+        return view('newsId', ['find' => $find, 'news' => $news]);
     }
 
     public function contactPage(){

@@ -7,6 +7,7 @@ use App\Models\Admin;
 use App\Models\News;
 use App\Models\User;
 use App\Models\Comment;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -89,7 +90,7 @@ class AdminController extends Controller
     }
 
     public function users(){
-        $users = User::all();
+        $users = User::where('is_admin',NULL)->get();
         return view('admin.users', compact('users'));
     }
 
@@ -106,15 +107,15 @@ class AdminController extends Controller
     }
 
     public function comments(){
-        $users = User::all();
+        $users = DB::table('users')
+            ->where('is_admin',NULL)
+            ->get();
+
         return view('admin.comments', compact('users'));
     }
 
     public function commentid($id){
         $find = User::findOrFail($id);
-        $comment = Comment::all();
-
-        return view('admin.commentid', 
-            ['find' => $find, 'comments' => $find->comments()]);
+        return view('admin.commentid', ['find' => $find]);
     }
 }

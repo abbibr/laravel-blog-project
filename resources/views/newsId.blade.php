@@ -91,7 +91,7 @@
 							<h4>Recent News</h4>
 							<ul>
 								@foreach ($news as $new)
-									<li><a href="#">{{ $new->title }}</a></li>
+									<li><a href="{{ route('newsPage', $new->id) }}">{{ $new->title }}</a></li>
 								@endforeach
 							</ul>
 						</div>
@@ -101,15 +101,6 @@
 								<li><a href="#">SEP 2021 (5)</a></li>
 								<li><a href="#">JAN 2022 (3)</a></li>
 								<li><a href="#">MAY 2021 (4)</a></li>
-							</ul>
-						</div>
-						<div class="tag-section">
-							<h4>Tags</h4>
-							<ul>
-								<li><a href="#">Apple</a></li>
-								<li><a href="#">Strawberry</a></li>
-								<li><a href="#">Berry</a></li>
-								<li><a href="#">Orange</a></li>
 							</ul>
 						</div>
 					</div>
